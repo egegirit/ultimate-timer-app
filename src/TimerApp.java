@@ -308,28 +308,54 @@ public class TimerApp extends JFrame implements AutoCloseable {
         private void startTimer() {
             scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
             scheduledExecutor.scheduleAtFixedRate(() -> {
-                milliseconds += reverseCheckbox.isSelected() ? -10 : 10;
+                // milliseconds += reverseCheckbox.isSelected() ? -10 : 10;
 
-                if (milliseconds >= 1000 || milliseconds <= -1000) {
-                    seconds += milliseconds / 1000;
-                    milliseconds %= 1000;
+                if (reverseCheckbox.isSelected()){
+                    milliseconds += -10;
+                    System.out.println(milliseconds);
+                    if (milliseconds <= -1000) {
+                        seconds -= -(milliseconds / 1000);
+                        milliseconds %= 1000;
+                    }
+
+                    if (seconds <= -60) {
+                        minutes -= -(seconds / 60);
+                        seconds %= 60;
+                    }
+
+                    if (minutes <= -60) {
+                        hours -= -(minutes / 60);
+                        minutes %= 60;
+                    }
+
+                }
+                else
+                {
+                    milliseconds += 10;
+
+                    if (milliseconds >= 1000 || milliseconds <= -1000) {
+                        seconds += milliseconds / 1000;
+                        milliseconds %= 1000;
+                    }
+
+                    if (seconds >= 60 || seconds <= -60) {
+                        minutes += seconds / 60;
+                        seconds %= 60;
+                    }
+
+                    if (minutes >= 60 || minutes <= -60) {
+                        hours += minutes / 60;
+                        minutes %= 60;
+                    }
                 }
 
-                if (seconds >= 60 || seconds <= -60) {
-                    minutes += seconds / 60;
-                    seconds %= 60;
-                }
-
-                if (minutes >= 60 || minutes <= -60) {
-                    hours += minutes / 60;
-                    minutes %= 60;
-                }
-
+                // Check if an alarm timer is reached
                 checkAlarmNotification();
 
                 SwingUtilities.invokeLater(() -> timeLabel.setText(formatTime(hours, minutes, seconds, milliseconds)));
             }, 0, 10, TimeUnit.MILLISECONDS);
 
+            // The start timer button becomes pause timer after clicking the start button
             startPauseButton.setText("Pause Timer");
         }
 
