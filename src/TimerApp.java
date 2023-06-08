@@ -308,11 +308,8 @@ public class TimerApp extends JFrame implements AutoCloseable {
         private void startTimer() {
             scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
             scheduledExecutor.scheduleAtFixedRate(() -> {
-                // milliseconds += reverseCheckbox.isSelected() ? -10 : 10;
-
                 if (reverseCheckbox.isSelected()){
                     milliseconds += -10;
-                    System.out.println(milliseconds);
                     if (milliseconds <= -1000) {
                         seconds -= -(milliseconds / 1000);
                         milliseconds %= 1000;
@@ -602,7 +599,7 @@ public class TimerApp extends JFrame implements AutoCloseable {
                         int newMilliseconds = Integer.parseInt(parts[3]);
 
                         // Range validation for editing alarm timer
-                        if ((newMilliseconds < 0 || newMilliseconds > 1000) || (newSeconds < 0 || newSeconds > 60) || (newMinutes < 0 || newMinutes > 60) || (newHours < 0 || newHours > 23) ){
+                        if ((newMilliseconds > 1000) || (newSeconds > 60) || (newMinutes > 60) || (newHours > 23) ){
                             JOptionPane.showMessageDialog(TimerApp.this,
                                     "Invalid input format. Please use HH:MM:SS:SS format.",
                                     "Invalid Input",
