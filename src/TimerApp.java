@@ -601,7 +601,7 @@ public class TimerApp extends JFrame implements AutoCloseable {
                         // Range validation for editing alarm timer
                         if ((newMilliseconds > 1000) || (newSeconds > 60) || (newMinutes > 60) || (newHours > 23) ){
                             JOptionPane.showMessageDialog(TimerApp.this,
-                                    "Invalid input format. Please use HH:MM:SS:SS format.",
+                                    "Invalid range for timer (Allowed range is 0-23:0-59:0-59:0-99). Please use HH:MM:SS:SS format.",
                                     "Invalid Input",
                                     JOptionPane.ERROR_MESSAGE);
                         } else {
