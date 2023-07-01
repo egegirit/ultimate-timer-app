@@ -24,7 +24,7 @@ To use the Ultimate Timer App, follow these steps:
 1. Clone the repository to your local machine using the following command:
 
    ```bash
-   git clone https://github.com/your-username/ultimate-timer-app.git
+   git clone https://github.com/egegirit/ultimate-timer-app.git
    ```
 
 2. Open the project in your preferred Java development environment.
